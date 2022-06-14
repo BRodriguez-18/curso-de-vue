@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        Hola {{nombre}} estamos en el año {{anio}}
+        <br>
+        {{meses}}
+        mes elegido {{meses[0]}}
+    </div>
+<hr>
+    <div id="app2">
+        Hola {{nombre}}
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        //data, methods, props, mounted, created, computed, watch
+        const holaMundo = {
+            data(){
+                return{
+                    nombre: 'Brian',
+                    anio:'2022',
+                    meses: ['enero', 'febrero']
+                }
+            }
+        }
+        const holaMundo2 = {
+            data(){
+                return{
+                    nombre: 'martin'
+                }
+            }
+
+        }
+        var mountedApp=Vue.createApp(holaMundo).mount('#app')
+        var mountedApp2=Vue.createApp(holaMundo2).mount('#app2')
+    </script>
+</body>
+
+</html>

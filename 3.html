@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       
+        <label v-bind:title="titulo">hola mundo</label>
+        <hr>
+        <button v-on:click="mostrarImagen('imagen.png')">imagen</button>
+        <button v-on:click="mostrarImagen('imagen2.png')">imagen2</button>
+        <hr>
+        <img v-bind:src="imagen">
+    </div>
+    
+<hr>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        //data, methods, props, mounted, created, computed, watch
+        const holaMundo = {
+            data(){
+                return{
+                   titulo: 'este es un titulo dinamico',
+                   imagen: ''
+                }
+            },
+            
+            methods: {
+                mostrarImagen(imagen){
+                    this.imagen = imagen;
+                }
+            }
+        }
+       
+        var mountedApp=Vue.createApp(holaMundo).mount('#app')
+    </script>
+</body>
+
+</html>
