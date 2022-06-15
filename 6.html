@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- <li v-for="fruta in frutas">{{fruta}}</li> -->
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="fruta in frutas_id">{{fruta.id}} - {{fruta.nombre}}
+            <ul>
+                <li v-for="pais in fruta.paises_origen">pais de origen: {{pais.id}} - {{pais.pais}}</li>
+            </ul>
+            <hr>
+        </li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="letra in letras">{{letra}}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="i in 100">{{i}}</li>
+        </ul>
+      
+    </div>
+    
+<hr>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        //data, methods, props, mounted, created, computed, watch
+        const holaMundo = {
+            data(){
+                return{
+                    letras:'abcde',
+                  frutas_id: [
+                      {
+                        id: 1,
+                        nombre: 'manzana',
+                        paises_origen:[
+                        {
+                            id_pais:1,
+                            pais: 'El Salvador'
+                        },
+                        {
+                            id_pais:2,
+                            pais: 'Mexico'
+                        }    
+                        
+                        ]
+                      },
+                      {
+                        id: 2,
+                        nombre: 'pera',
+                        paises_origen:[
+                        {
+                            id_pais:1,
+                            pais: 'El Salvador'
+                        },
+                        {
+                            id_pais:2,
+                            pais: 'Mexico'
+                        } 
+                    ]  
+                      },
+                      {
+                        id: 3,
+                        nombre: 'uva',
+                        paises_origen:[
+                        {
+                            id_pais:3,
+                            pais: 'peru'
+                        },
+                        {
+                            id_pais:4,
+                            pais: 'brasil'
+                        }  
+                    ] 
+                      },
+                      {
+                        id: 4,
+                        nombre: 'uva',
+                        paises_origen:null
+                      }
+                  ]
+                }
+            },
+            
+            methods: {
+                
+            }
+        }
+       
+        var mountedApp=Vue.createApp(holaMundo).mount('#app')
+    </script>
+</body>
+
+</html>
