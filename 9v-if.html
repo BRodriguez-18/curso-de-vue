@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+</head>
+<body>
+    <div id="app">
+       <h5 v-if="(numero1 > numero2)"> el numero {{numero1}} es mayor que numero {{numero2}}</h5>
+       <h5 v-else-if="(numero1 == numero2)">el numero {{numero1}} es igual que {{numero2}}</h5>
+       <h5 v-else>el {{numero2}} es  mayor que el {{numero1}}</h5>
+
+       <ul>
+           <li v-for="(post in posts)" v-if="post.id % 2 == 0"></li>
+       </ul>
+    </div>
+    
+<hr>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        //data, methods, props, mounted, created, computed, watch
+        //v-if v-else v-else-if v-show
+        const app = {
+            data(){
+                return{
+                       numero1: 1 ,
+                       numero2: 6                   
+                    
+                }
+            },
+            methods: {
+               
+            },
+            mounted(){
+                
+            }
+        }
+       
+        var mountedApp=Vue.createApp(app).mount('#app')
+    </script>
+</body>
+
+</html>
