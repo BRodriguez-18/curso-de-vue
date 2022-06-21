@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>         
+</head>
+<body>
+    <div id="app">
+       <button class="btn indigo darken-4" @click="contador++">haz click</button>
+        {{contador}}
+       <br>
+       <button class="btn indigo draken-4" @mouseout="(estado = false)" @mouseover="(estado=true)">coloca el mouse encima</button>
+        estado del mouse:{{estado}}
+        <img src="imagen.png" alt="" v-show="estado">
+
+        <select class="browser-default" v-on:change="cambiarImagen($event)">
+            <option value="iamgen.png">imagen</option>
+            <option value="imagen2.png">imagen2</option>
+        </select>
+    </div>
+    
+<hr>
+    
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        //data, methods, props, mounted, created, computed, watch
+        //v-if v-else v-else-if v-show
+        const app = {
+            data(){
+                return{
+                     contador:0 ,
+                     estado:false,
+                     imagen: '' 
+                }
+            },
+            methods: {
+                cambiarImagen(event){
+                    this.imagen=event.target.value;
+                }
+            },
+            mounted(){
+              
+            }
+        }
+       
+        var mountedApp=Vue.createApp(app).mount('#app')
+    </script>
+</body>
+
+</html>
