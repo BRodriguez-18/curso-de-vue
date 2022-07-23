@@ -9,10 +9,7 @@ _app.component('menu-component',{
                     </ul>
                 </div>
     </nav>
-    <input type="text" v-model="miUsuario">
-    <br>
-    <button type="button" @click="saludarDesdeHijo">Haz click</button>
-    `,
+    <input type="text" v-model="miUsuario">`,
     props:{
         usuario: String
     },
@@ -20,10 +17,5 @@ _app.component('menu-component',{
         return{
             miUsuario: this.usuario
         }
-    },
-    methods:{
-        saludarDesdeHijo(nombre){
-            console.log('saludo' + nombre)
-        }
     }
-});
+})
