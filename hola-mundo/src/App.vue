@@ -36,19 +36,24 @@
           </div>
 
           <div class="row">
-            <div class="col m4 card-panel">
-              <label>Pasatiempo</label>
-              <input type="text" v-model="pasatiempo">
-              <button type="button" class="btn indigo darken-3">agregar pasatiempo<i class="material-icons right">send</i></button>
-              <br>
-              <ul>
+              <form @submit.prevent="agregarPasatiempo">
+                <div class="col m4 card-panel">
+                  <label>Pasatiempo</label>
+                  <input type="text" v-model="pasatiempo">
+                  <button type="submit" class="btn indigo darken-3">agregar pasatiempo<i class="material-icons right">send</i></button>
+                </div> 
+                <br>
+                <ul>
                 <li v-for="pasatiempo in pasatiempos" v-bind:key="pasatiempo">{{pasatiempo}}</li>
-              </ul>
-            </div>
+                </ul>
+              </form>
+              
+             
+            
           </div>
           <div class="row">
             <div class="col m4">
-              <label><input type="checkbox" v-model="suscribirse"><span> suscribirse al boletin de noticias</span> </label>
+              <label><input type="checkbox" v-model="suscrito"><span> suscribirse al boletin de noticias</span> </label>
             </div>
           </div>
           <div class="row">
@@ -74,12 +79,11 @@
             </tr>
           </thead>
           <tbody>
-            <tbody>
+            
               <tr v-for="usuario in usuarios" v-bind:key="usuario">
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.apellidos}}</td>
                 <td>{{usuario.edad}}</td>
-                <td>{{usuario.nombre}}</td>
                 <td>{{usuario.estado_civil}}</td>
                 <td>{{usuario.correo}}</td>
                 <td>
@@ -91,7 +95,7 @@
                 <td><a href="#!"><i class="material-icons">create</i></a></td>
                 <td><a href="#!"><i class="material-icons">delete</i></a></td>
               </tr>
-            </tbody>
+            
           </tbody>
         </table>
       </div>
@@ -112,7 +116,7 @@ export default {
       edad:0,
       estado_civil:'',
       correo:'',
-      suscribirse:false,
+      suscrito:false,
       pasatiempo:'',
       pasatiempos:[],
       usuarios:[],
@@ -131,8 +135,39 @@ export default {
 
   },
   methods:{
-    saludar(){
-      M.toast({html: 'hola mundo'});
+    agregarUsuario(){
+      var data = {
+        nombre: this.nombre,
+        apellidos: this.apellidos,
+        edad: this.edad,
+        estado_civil: this.estado_civil,
+        correo: this.correo,
+        suscrito: this.suscrito,
+        pasatiempos: this.pasatiempos,
+      };
+      this.usuarios.push(data);
+      this.nombre= '';
+      this.apellidos='';
+      this.edad=0;
+      this.estado_civil='';
+      this.correo='';
+      this.suscrito=false;
+      this.pasatiempo='';
+      this.pasatiempos=[];
+    },
+    agregarPasatiempo(){
+      var total = this.pasatiempos.length;
+      var ultimo = 0;
+      if(total > 0){
+        ultimo = this.pasatiempos[ultimo - 1].id;
+      }
+      var data={
+        id: id + 1,
+        descripcion: this.pasatiempo
+        
+      };
+      this.pasatiempos.push(data);
+      this.pasatiempo='';
     }
   }
 }
