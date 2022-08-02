@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col m12 card-panel">
+
         <form @submit.prevent="agregarUsuario">
           <div class="row">
             <div class="col m4">
@@ -21,12 +22,9 @@
             </div>
             <div class="col m4">
               <label>Estado civil</label>
-              <select v-model="estado_civil">
+              <select class="browser-default" id="select_estado_civil" v-model="estado_civil">
                 <option value="">Seleccione</option>
-                <option value="C">Casado</option>
-                <option value="S">Soltero</option>
-                <option value="V">Viudo</option>
-                <option value="D">Divorciado</option>
+                <option v-for="estado in estados_civiles" v-bind:key="estado" v-bind:value="estado.id">{{estado.descripcion}}</option>
               </select>
             </div>
             <div class="col m4">
@@ -40,17 +38,18 @@
                 <div class="col m4 card-panel">
                   <label>Pasatiempo</label>
                   <input type="text" v-model="pasatiempo">
-                  <button type="submit" class="btn indigo darken-3">agregar pasatiempo<i class="material-icons right">send</i></button>
+                  <button type="submit" class="btn indigo darken-3">agregar pasatiempo<i class="material-icons right">send</i></button>    
+                  <br>
+                  <ul>
+                    <li v-for="pasatiempo in pasatiempos" v-bind:key="pasatiempo">
+                    {{pasatiempo.id}}-{{pasatiempo.descripcion}} 
+                    <a href="#!"><i class="material-icons">close</i></a>
+                    </li>
+                  </ul>
                 </div> 
-                <br>
-                <ul>
-                <li v-for="pasatiempo in pasatiempos" v-bind:key="pasatiempo">{{pasatiempo}}</li>
-                </ul>
-              </form>
-              
-             
-            
+              </form>           
           </div>
+
           <div class="row">
             <div class="col m4">
               <label><input type="checkbox" v-model="suscrito"><span> suscribirse al boletin de noticias</span> </label>
@@ -84,7 +83,7 @@
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.apellidos}}</td>
                 <td>{{usuario.edad}}</td>
-                <td>{{usuario.estado_civil}}</td>
+                <td>{{usuario.estado_civil_descripcion}}</td>
                 <td>{{usuario.correo}}</td>
                 <td>
                   <ul>
@@ -94,8 +93,7 @@
                 <td><labeL><input type="checkbox" disabled v-model="usuario.suscrito"><span></span></label></td>
                 <td><a href="#!"><i class="material-icons">create</i></a></td>
                 <td><a href="#!"><i class="material-icons">delete</i></a></td>
-              </tr>
-            
+              </tr>          
           </tbody>
         </table>
       </div>
@@ -105,8 +103,6 @@
 
 <script>
 import M from 'materialize-css'
-
-
 export default {
   name: 'App',
   data(){
@@ -120,7 +116,25 @@ export default {
       pasatiempo:'',
       pasatiempos:[],
       usuarios:[],
-      select_instances:[]
+      select_instances:[],
+      estados_civiles: [
+        {
+          id:'S',
+          descripcion:'Soltero'
+        },
+        {
+          id:'C',
+          descripcion:'Casado'
+        },
+        {
+          id:'D',
+          descripcion:'Divorciado'
+        },
+        {
+          id:'V',
+          descripcion:'Viudo'
+        }
+      ]
 
     }
   },
@@ -128,19 +142,21 @@ export default {
   mounted(){ 
     var elems = document.querySelectorAll('select');
     this.select_instances = M.FormSelect.init(elems, null);
-    this.axios.get("https://prueba.com")
-    .then(()=>{
-
-    });
-
   },
   methods:{
     agregarUsuario(){
+  
+      var index_estado_civil = this.estados_civiles.findIndex(x=>x.id == this.estado_civil)      
+      if(index_estado_civil == -1){
+        M.toast({html: 'seleciona un estado civil'});
+        return;
+      }
       var data = {
         nombre: this.nombre,
         apellidos: this.apellidos,
         edad: this.edad,
         estado_civil: this.estado_civil,
+        estado_civil_descripcion:this.estados_civiles[index_estado_civil].descripcion,
         correo: this.correo,
         suscrito: this.suscrito,
         pasatiempos: this.pasatiempos,
@@ -159,10 +175,10 @@ export default {
       var total = this.pasatiempos.length;
       var ultimo = 0;
       if(total > 0){
-        ultimo = this.pasatiempos[ultimo - 1].id;
+        ultimo = this.pasatiempos[total - 1].id;
       }
       var data={
-        id: id + 1,
+        id: ultimo + 1,
         descripcion: this.pasatiempo
         
       };
