@@ -41,9 +41,9 @@
                   <button type="submit" class="btn indigo darken-3">agregar pasatiempo<i class="material-icons right">send</i></button>    
                   <br>
                   <ul>
-                    <li v-for="pasatiempo in pasatiempos" v-bind:key="pasatiempo">
+                    <li v-for="(pasatiempo, index) in pasatiempos" v-bind:key="pasatiempo">
                     {{pasatiempo.id}}-{{pasatiempo.descripcion}} 
-                    <a href="#!"><i class="material-icons">close</i></a>
+                    <a href="#!" @click="pasatiempos.splice(index, 1)"><i class="material-icons">close</i></a>
                     </li>
                   </ul>
                 </div> 
@@ -107,6 +107,7 @@ export default {
   name: 'App',
   data(){
     return{
+     
       nombre: '',
       apellidos:'',
       edad:0,
@@ -184,7 +185,11 @@ export default {
       };
       this.pasatiempos.push(data);
       this.pasatiempo='';
+    },
+    eliminarRegistro(){
+
     }
+
   }
 }
 </script>
