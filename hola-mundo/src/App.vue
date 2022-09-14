@@ -50,13 +50,13 @@
               </form>           
           </div>
 
-          <div class="row">
+          <div class="row"> 
             <div class="col m4">
               <label><input type="checkbox" v-model="suscrito"><span> suscribirse al boletin de noticias</span> </label>
             </div>
           </div>
           <div class="row">
-            <button type="submit" class="btn indigo darken-4">Agregar usuario <i class="material-icons right">add_circle</i></button>
+            <button type="submit" class="btn indigo darken-4">{{(indice == -1 ? 'Agregar':'Actualizar')}} usuario <i class="material-icons right">add_circle</i></button>
           </div>
         </form>    
       </div>
@@ -79,7 +79,7 @@
           </thead>
           <tbody>
             
-              <tr v-for="usuario in usuarios" v-bind:key="usuario">
+              <tr v-for="(usuario, index) in usuarios" v-bind:key="usuario" v-bind:class="{'indigo darken-4 white-text':index==indice}">
                 <td>{{usuario.nombre}}</td>
                 <td>{{usuario.apellidos}}</td>
                 <td>{{usuario.edad}}</td>
@@ -91,8 +91,8 @@
                   </ul>
                 </td>
                 <td><labeL><input type="checkbox" disabled v-model="usuario.suscrito"><span></span></label></td>
-                <td><a href="#!"><i class="material-icons">create</i></a></td>
-                <td><a href="#!"><i class="material-icons">delete</i></a></td>
+                <td><a href="#!" @click="editar(index)"><i class="material-icons">create</i></a></td>
+                <td><a href="#!" @click="eliminar(index)"><i class="material-icons">delete</i></a></td>
               </tr>          
           </tbody>
         </table>
@@ -107,7 +107,7 @@ export default {
   name: 'App',
   data(){
     return{
-     
+      indice:-1,
       nombre: '',
       apellidos:'',
       edad:0,
@@ -162,7 +162,14 @@ export default {
         suscrito: this.suscrito,
         pasatiempos: this.pasatiempos,
       };
-      this.usuarios.push(data);
+      if(this.indice == -1){
+        this.usuarios.push(data);
+
+      }
+      else{
+        this.usuarios[this.inidce]=data;
+      }
+      this.indice=-1;
       this.nombre= '';
       this.apellidos='';
       this.edad=0;
@@ -186,8 +193,19 @@ export default {
       this.pasatiempos.push(data);
       this.pasatiempo='';
     },
-    eliminarRegistro(){
-
+    eliminar(index){
+      if(!confirm('¿Desea eliminar este registro?'))return;
+      this.usuarios.splice(index,1);
+    },
+    editar(index){
+      var usuario = this.usuarios[index];
+      this.indice=index;
+      this.nombre=usuario.nombre;
+      this.apellido=usuario.apellido;
+      this.edad=usuario.edad;
+      this.correo=usuario.correo;
+      this.estado_civil=usuario.estado_civil;
+      this.pasatiempos=usuario.pasatiempos;
     }
 
   }
