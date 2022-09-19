@@ -6,9 +6,7 @@
       <li><router-link name="Login">Login</router-link></li>
       </ul>
     </div>
-    
   </nav>
-
   
   <div class="container">
     <router-view></router-view>
